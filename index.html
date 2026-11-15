@@ -963,19 +963,33 @@ body, .stage { background-color: transparent !important; }
 }
 </style>
 <style>
-/* About photo: plain white frame, square corners */
-.deck .photo, .deck .photo img, .deck .ghost { border-radius: 0 !important; }
-.deck { aspect-ratio: 500 / 633 !important; }
-.deck .photo { background: #FFFFFF !important; padding: 0 !important; transform: rotate(-3deg); }
+/* About photo: collectible-card frame — cream card, photo window with striped backing, names and side lettering */
+.deck { aspect-ratio: 4 / 5 !important; container-type: inline-size; }
+.deck .photo { --tc-ink: #2A468B; background: #FBF7EE !important; padding: 0 !important; border-radius: 6cqi !important; transform: rotate(-3deg);
+  box-shadow: 0 0 0 1px rgba(42, 70, 139, .08), 14px 16px 0 rgba(42, 70, 139, .12), 0 26px 50px rgba(5, 16, 45, .2) !important; overflow: hidden; color: var(--tc-ink); }
 .deck .photo:hover { transform: rotate(-1deg) translateY(-4px); }
-.deck .photo img { object-fit: contain !important; }
+.tc-window { position: absolute; left: 13%; right: 13%; top: 15.5%; bottom: 13.5%; overflow: hidden; background: #EEF3FB repeating-linear-gradient(135deg, var(--tc-ink) 0 1.8cqi, transparent 1.8cqi 4.6cqi); }
+.deck .photo .tc-window img { position: absolute; inset: 6.5% 6.5% 0 0; width: 93.5%; height: 93.5%; object-fit: cover !important; object-position: 50% 30%; border-radius: 0 !important; box-shadow: -6px 6px 18px rgba(5, 16, 45, .25); }
+.tc-name { position: absolute; font: 500 3.6cqi/1 var(--body); letter-spacing: .02em; white-space: nowrap; }
+.tc-top { right: 13%; top: 7.6%; }
+.tc-bot { left: 13%; bottom: 6.6%; transform: rotate(180deg); }
+.tc-side { position: absolute; top: 50%; font: 600 1.9cqi/1 var(--body); letter-spacing: .26em; text-transform: uppercase; white-space: nowrap; writing-mode: vertical-rl; opacity: .85; }
+.tc-l { left: 6.2%; transform: translateY(-50%) rotate(180deg); }
+.tc-r { right: 6.2%; transform: translateY(-50%); }
+.tc-mark { position: absolute; width: 5.2cqi; height: 5.2cqi; }
+.tc-mark svg { display: block; width: 100%; height: 100%; }
+.tc-tl { left: 6.4%; top: 6.4%; }
+.tc-br { right: 6.4%; bottom: 6.4%; transform: rotate(180deg); }
+.tc-crest { position: absolute; left: 50%; top: 4.6%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .9cqi; }
+.tc-crest b { font: 700 5.4cqi/1 var(--display); letter-spacing: .04em; }
+.tc-crest small { font: 500 1.7cqi/1 var(--body); letter-spacing: .3em; text-transform: uppercase; opacity: .75; }
 </style>
 <!-- ================= 2. ABOUT ================= -->
 <section class="about" id="about" aria-labelledby="about-title">
   <div class="col">
     <div class="deck">
       <button class="photo" id="photo" type="button" aria-label="Đổi sang ảnh tiếp theo">
-        <img id="photoImg" alt="Ảnh cá nhân">
+        <span class="tc-window"><img id="photoImg" alt="Ảnh cá nhân"></span><span class="tc-crest" aria-hidden="true"><b>VN</b><small>Portfolio</small></span><span class="tc-name tc-top" aria-hidden="true">Vy Nguyễn</span><span class="tc-name tc-bot" aria-hidden="true">Vy Nguyễn</span><span class="tc-side tc-l" aria-hidden="true">Thảo Vy · Designer</span><span class="tc-side tc-r" aria-hidden="true">Thảo Vy · Designer</span><span class="tc-mark tc-tl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6c4 0 7 3 9 9 2-6 5-9 9-9"/><path d="M12 15v6"/></svg></span><span class="tc-mark tc-br" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6c4 0 7 3 9 9 2-6 5-9 9-9"/><path d="M12 15v6"/></svg></span>
         <span class="cap"><i>Bấm để đổi ảnh</i><span id="photoCount">01 / 03</span></span>
       </button>
     </div>
@@ -1278,7 +1292,7 @@ body, .stage { background-color: transparent !important; }
   }
 
   /* About photo deck */
-  const photos = ['about/vy.jpg'];
+  const photos = ['about/vy-card.jpg'];
   let pi = 0;
   const photo = document.getElementById('photo'), pImg = document.getElementById('photoImg'), pCount = document.getElementById('photoCount');
   const showPhoto = () => { pImg.src = photos[pi]; pCount.textContent = String(pi + 1).padStart(2, '0') + ' / ' + String(photos.length).padStart(2, '0'); };
