@@ -983,8 +983,9 @@ body, .stage { background-color: transparent !important; }
 .tc-crest { position: absolute; left: 50%; top: 4.6%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .9cqi; }
 .tc-crest b { font: 700 5.4cqi/1 var(--display); letter-spacing: .04em; }
 .tc-crest small { font: 500 1.7cqi/1 var(--body); letter-spacing: .3em; text-transform: uppercase; opacity: .75; }
-/* Experience timeline: the line runs past the last job and fades into the page background */
-.timeline::before { bottom: -36px; border-radius: 2px 2px 0 0; background: linear-gradient(180deg, var(--leaf) 0%, var(--lotus) 62%, rgba(42, 70, 139, 0) 100%); }
+/* Experience timeline: the line runs past the first and last job and fades into the page background */
+.timeline { margin-top: 26px; }
+.timeline::before { top: -36px; bottom: -36px; border-radius: 0; background: linear-gradient(180deg, rgba(42, 70, 139, 0) 0, var(--leaf) 44px, var(--lotus) calc(100% - 44px), rgba(42, 70, 139, 0) 100%); }
 </style>
 <!-- ================= 2. ABOUT ================= -->
 <section class="about" id="about" aria-labelledby="about-title">
